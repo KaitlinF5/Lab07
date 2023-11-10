@@ -24,18 +24,29 @@ evals<-read.csv("data/evals.csv", row.names=1)
 1.  Visualize the distribution of `score` in the dataframe `evals`.
 
 ```{r viz-score}
-# add code here
+evals %>%
+  ggplot(aes(x = score)) + 
+  geom_histogram()
+
+evals %>%
+  summary()
 ```
 
-*Add your other details and narratives here.*
+*The distribution of the variable score is skewed to the left. Suggesting there are more students who are satisfied with the proffesors compared to the students who aren't.*
 
 2.  Visualize and describe the relationship between `score` and `bty_avg` using `geom_point()` to represent the data. 
 
 ```{r scatterplot}
-# add code here
+evals %>%
+  ggplot(aes(x = score, y = bty_avg)) + 
+  geom_point()
+evals %>%
+  ggplot(aes(x = score, y = bty_avg)) + 
+  geom_jitter()
+
 ```
 
-*Add your narrative and other details here.*
+*Jitter adds small variation to the points to help with the overlapping of points. The previous graph had points that overlapped completely, so not all points were visible clearly, which can be misleading.*
 
 # Exercise 2: Simple Linear regression with a numerical predictor
 
