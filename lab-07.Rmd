@@ -10,6 +10,7 @@ output: html_document
 ```{r load-packages, message=FALSE, echo=TRUE}
 library(tidyverse)
 library(tidymodels)
+library(patchwork)
 
 ```
 
@@ -42,16 +43,29 @@ evals %>%
 2.  Visualize and describe the relationship between `score` and `bty_avg` using `geom_point()` to represent the data. 
 
 ```{r scatterplot}
-evals %>%
-  ggplot(aes(x = score, y = bty_avg)) + 
-  geom_point()
-evals %>%
-  ggplot(aes(x = score, y = bty_avg)) + 
-  geom_jitter()
+plot_geom_point  <- ggplot(data = evals, mapping = aes(x = bty_avg, y = score)) + 
+  geom_point() + 
+  labs(
+    x = "Beauty score", 
+    y = "Evaluation score", 
+    title = "Course evaluation by beauty scores"
+  )
 
+plot_geom_jitter <- ggplot(data = evals, mapping = aes(x = bty_avg, y = score)) + 
+  geom_jitter() + 
+  labs(
+    x = "Beauty score", 
+    y = "Evaluation score", 
+    title = "Course evaluation by beauty scores"
+  )
+
+# Note: this uses the patchwork package loaded above
+# learn more about patchwork at https://patchwork.data-imaginist.com/
+# it might be useful for your presentations!
+plot_geom_point + plot_geom_jitter
 ```
 
-*Jitter adds small variation to the points to help with the overlapping of points. The previous graph had points that overlapped completely, so not all points were visible clearly, which can be misleading.*
+*Jitter adds small variation to the points to help with the overlapping of points. The previous graph had points that overlapped completely, so not all points were visible clearly, which can be misleading. The same score and bty_avg were overplotted, making it impossible to see where there is a higher/lower density of points*
 
 # Exercise 2: Simple Linear regression with a numerical predictor
 
